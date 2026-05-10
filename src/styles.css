@@ -1,0 +1,171 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Amiri:wght@400;700&family=Inter:wght@300;400;500&display=swap');
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-paper: var(--paper);
+  --color-earth: var(--earth);
+  --color-earth-soft: var(--earth-soft);
+  --color-rose-dusty: var(--rose-dusty);
+  --color-peach: var(--peach);
+  --color-sage: var(--sage);
+  --color-sage-deep: var(--sage-deep);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-lavender: var(--lavender);
+  --color-ink: var(--ink);
+  --color-cream: var(--cream);
+  --color-rose-deep: var(--rose-deep);
+  --color-aged-paper: var(--aged-paper);
+  --color-terracotta: var(--terracotta);
+
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "EB Garamond", serif;
+  --font-arabic: "Amiri", serif;
+  --font-ui: "Inter", sans-serif;
+}
+
+:root {
+  --radius: 0.625rem;
+
+  --background: #FDFAF5;
+  --foreground: #2C1F0E;
+  --paper: #FDFAF5;
+  --earth: #1A1208;
+  --earth-soft: #221A0F;
+  --rose-dusty: #C9647A;
+  --peach: #E8A87C;
+  --sage: #6B8F5E;
+  --sage-deep: #3D5A35;
+  --gold: #B8860B;
+  --gold-light: #D4A843;
+  --lavender: #A89BC0;
+  --ink: #2C1F0E;
+  --cream: #EDE0C4;
+  --rose-deep: #2D1018;
+  --aged-paper: #F5EDD8;
+  --terracotta: #C97A4A;
+
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--rose-dusty);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--sage);
+  --secondary-foreground: var(--cream);
+  --muted: #EFE6D4;
+  --muted-foreground: rgba(44,31,14,0.5);
+  --accent: var(--gold-light);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #fff;
+  --border: rgba(44,31,14,0.12);
+  --input: rgba(44,31,14,0.18);
+  --ring: var(--gold);
+}
+
+.dark { --background: var(--earth); --foreground: var(--cream); }
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    line-height: 1.9;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 300; }
+  .font-arabic { font-family: var(--font-arabic); direction: rtl; line-height: 2.4; font-size: 30px; }
+  .font-ui { font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 0.2em; font-weight: 300; }
+  .font-display { font-family: var(--font-display); }
+  .font-body { font-family: var(--font-body); }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+}
+
+/* Petal fall */
+@keyframes petal-fall {
+  0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+  10% { opacity: var(--petal-opacity, 0.6); }
+  90% { opacity: var(--petal-opacity, 0.6); }
+  100% { transform: translateY(110vh) translateX(var(--drift, 40px)) rotate(720deg); opacity: 0; }
+}
+
+@keyframes bloom-in {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes radial-bloom {
+  0% { clip-path: circle(0% at 50% 50%); }
+  100% { clip-path: circle(150% at 50% 50%); }
+}
+
+@keyframes seed-shake {
+  0%,100% { transform: rotate(0); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+
+@keyframes soft-bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes petal-fall-btn {
+  0% { transform: translate(-50%, -10px) rotate(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(-50%, 40px) rotate(180deg); opacity: 0; }
+}
+
+.btn-petal { position: relative; overflow: visible; }
+.btn-petal::after {
+  content: '';
+  position: absolute; left: 50%; top: 0;
+  width: 8px; height: 10px;
+  background: var(--rose-dusty);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0; pointer-events: none;
+}
+.btn-petal:hover::after { animation: petal-fall-btn 1.2s ease-out forwards; }
+
+.heading-leaves { position: relative; display: inline-block; }
+.heading-leaves::before, .heading-leaves::after {
+  content: ''; position: absolute; top: 50%;
+  width: 28px; height: 12px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 12'><path d='M2 6 Q8 0 14 6 Q8 12 2 6Z' fill='%236B8F5E'/></svg>");
+  background-repeat: no-repeat; background-position: center;
+  opacity: 0; transition: opacity .3s, transform .3s;
+  transform: translateY(-50%) translateX(0);
+}
+.heading-leaves::before { right: 100%; margin-right: 8px; }
+.heading-leaves::after { left: 100%; margin-left: 8px; transform: translateY(-50%) scaleX(-1); }
+.heading-leaves:hover::before { opacity: 1; transform: translateY(-50%) translateX(-6px); }
+.heading-leaves:hover::after { opacity: 1; transform: translateY(-50%) scaleX(-1) translateX(-6px); }
+
+.prayer-card:hover .corner-orn { transform: rotate(2deg); }
+.corner-orn { transition: transform .5s ease; }
+.prayer-card:hover { box-shadow: inset 0 0 24px rgba(212,168,67,0.18); }
+
+.seed-btn:hover { animation: seed-shake .4s ease-in-out infinite; }
